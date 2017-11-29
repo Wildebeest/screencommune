@@ -12,6 +12,9 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        factory = RTCPeerConnectionFactory()
+        
 
         // Do any additional setup after loading the view.
     }
