@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D8AA3B1F248AD81CAA4B56B6 /* Pods_ScreenCommune.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD35674E0C611D5EC52BAFB7 /* Pods_ScreenCommune.framework */; };
 		FA1C42D51FCEABF600020BE8 /* librtc_sdk_objc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA1C42D41FCEABF600020BE8 /* librtc_sdk_objc.a */; };
 		FA1C42D71FCEAC8F00020BE8 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA1C42D61FCEAC8F00020BE8 /* VideoToolbox.framework */; };
 		FA1C42D91FCEACD300020BE8 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FA1C42D81FCEACD200020BE8 /* libstdc++.tbd */; };
+		FA1C42F21FD345DF00020BE8 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA1C42F11FD345DF00020BE8 /* MetalKit.framework */; };
 		FADCA84F1FC9FD1700596607 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADCA84E1FC9FD1700596607 /* AppDelegate.swift */; };
 		FADCA8511FC9FD1700596607 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADCA8501FC9FD1700596607 /* ViewController.swift */; };
 		FADCA8531FC9FD1700596607 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FADCA8521FC9FD1700596607 /* Assets.xcassets */; };
@@ -17,9 +19,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2CDA954EFFD8F62BE5CDAB00 /* Pods-ScreenCommune.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScreenCommune.release.xcconfig"; path = "Pods/Target Support Files/Pods-ScreenCommune/Pods-ScreenCommune.release.xcconfig"; sourceTree = "<group>"; };
+		7BE80BA1CC783D211281D5DE /* Pods-ScreenCommune.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScreenCommune.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ScreenCommune/Pods-ScreenCommune.debug.xcconfig"; sourceTree = "<group>"; };
+		CD35674E0C611D5EC52BAFB7 /* Pods_ScreenCommune.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScreenCommune.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA1C42D41FCEABF600020BE8 /* librtc_sdk_objc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librtc_sdk_objc.a; path = ../../webrtc/src/out/Default/obj/sdk/librtc_sdk_objc.a; sourceTree = "<group>"; };
 		FA1C42D61FCEAC8F00020BE8 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		FA1C42D81FCEACD200020BE8 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
+		FA1C42F11FD345DF00020BE8 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		FADCA84B1FC9FD1700596607 /* ScreenCommune.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScreenCommune.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FADCA84E1FC9FD1700596607 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FADCA8501FC9FD1700596607 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -35,21 +41,33 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA1C42F21FD345DF00020BE8 /* MetalKit.framework in Frameworks */,
 				FA1C42D91FCEACD300020BE8 /* libstdc++.tbd in Frameworks */,
 				FA1C42D71FCEAC8F00020BE8 /* VideoToolbox.framework in Frameworks */,
 				FA1C42D51FCEABF600020BE8 /* librtc_sdk_objc.a in Frameworks */,
+				D8AA3B1F248AD81CAA4B56B6 /* Pods_ScreenCommune.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DB3D5D49EAF6DFEA1B5EB6BA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7BE80BA1CC783D211281D5DE /* Pods-ScreenCommune.debug.xcconfig */,
+				2CDA954EFFD8F62BE5CDAB00 /* Pods-ScreenCommune.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		FADCA8421FC9FD1700596607 = {
 			isa = PBXGroup;
 			children = (
 				FADCA84D1FC9FD1700596607 /* ScreenCommune */,
 				FADCA84C1FC9FD1700596607 /* Products */,
 				FADCA85E1FC9FD5200596607 /* Frameworks */,
+				DB3D5D49EAF6DFEA1B5EB6BA /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -78,9 +96,11 @@
 		FADCA85E1FC9FD5200596607 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FA1C42F11FD345DF00020BE8 /* MetalKit.framework */,
 				FA1C42D81FCEACD200020BE8 /* libstdc++.tbd */,
 				FA1C42D61FCEAC8F00020BE8 /* VideoToolbox.framework */,
 				FA1C42D41FCEABF600020BE8 /* librtc_sdk_objc.a */,
+				CD35674E0C611D5EC52BAFB7 /* Pods_ScreenCommune.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -92,9 +112,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FADCA85B1FC9FD1700596607 /* Build configuration list for PBXNativeTarget "ScreenCommune" */;
 			buildPhases = (
+				ACBDF5F8EBCE45C321425DB5 /* [CP] Check Pods Manifest.lock */,
 				FADCA8471FC9FD1700596607 /* Sources */,
 				FADCA8481FC9FD1700596607 /* Frameworks */,
 				FADCA8491FC9FD1700596607 /* Resources */,
+				8D533CE9D70508BC4197CA41 /* [CP] Embed Pods Frameworks */,
+				6DF2A2D4416D5879DA4DD97B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -151,6 +174,60 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6DF2A2D4416D5879DA4DD97B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ScreenCommune/Pods-ScreenCommune-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8D533CE9D70508BC4197CA41 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ScreenCommune/Pods-ScreenCommune-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ScreenCommune/Pods-ScreenCommune-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ACBDF5F8EBCE45C321425DB5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ScreenCommune-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FADCA8471FC9FD1700596607 /* Sources */ = {
@@ -284,6 +361,7 @@
 		};
 		FADCA85C1FC9FD1700596607 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7BE80BA1CC783D211281D5DE /* Pods-ScreenCommune.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -298,11 +376,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				"LIBRARY_SEARCH_PATHS[arch=*]" = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-					"/Users/wilde/webrtc/src/out/Default/obj/**",
-				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(inherited) $(PROJECT_DIR) /Users/wilde/webrtc/src/out/Default/obj/**";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.ScreenCommune;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ScreenCommune/ScreenCommune-Bridging-Header.h";
@@ -313,6 +388,7 @@
 		};
 		FADCA85D1FC9FD1700596607 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2CDA954EFFD8F62BE5CDAB00 /* Pods-ScreenCommune.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -327,6 +403,7 @@
 					"$(PROJECT_DIR)",
 					"/Users/wilde/webrtc/src/out/Default/obj/**",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.ScreenCommune;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ScreenCommune/ScreenCommune-Bridging-Header.h";

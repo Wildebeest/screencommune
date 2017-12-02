@@ -14,7 +14,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        RTCInitializeSSL()
+        //RTCInitializeSSL()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
