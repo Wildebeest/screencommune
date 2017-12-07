@@ -22,6 +22,7 @@
 		2CDA954EFFD8F62BE5CDAB00 /* Pods-ScreenCommune.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScreenCommune.release.xcconfig"; path = "Pods/Target Support Files/Pods-ScreenCommune/Pods-ScreenCommune.release.xcconfig"; sourceTree = "<group>"; };
 		7BE80BA1CC783D211281D5DE /* Pods-ScreenCommune.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScreenCommune.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ScreenCommune/Pods-ScreenCommune.debug.xcconfig"; sourceTree = "<group>"; };
 		CD35674E0C611D5EC52BAFB7 /* Pods_ScreenCommune.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScreenCommune.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA0DD0AE1FD681E600DFE5F6 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		FA1C42D41FCEABF600020BE8 /* librtc_sdk_objc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librtc_sdk_objc.a; path = ../../webrtc/src/out/Default/obj/sdk/librtc_sdk_objc.a; sourceTree = "<group>"; };
 		FA1C42D61FCEAC8F00020BE8 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		FA1C42D81FCEACD200020BE8 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
@@ -96,6 +97,7 @@
 		FADCA85E1FC9FD5200596607 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FA0DD0AE1FD681E600DFE5F6 /* AVFoundation.framework */,
 				FA1C42F11FD345DF00020BE8 /* MetalKit.framework */,
 				FA1C42D81FCEACD200020BE8 /* libstdc++.tbd */,
 				FA1C42D61FCEAC8F00020BE8 /* VideoToolbox.framework */,

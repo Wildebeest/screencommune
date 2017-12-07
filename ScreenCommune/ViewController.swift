@@ -8,6 +8,7 @@
 
 import Cocoa
 import Starscream
+import AVKit
 
 class Socket: WebSocketDelegate {
     let socket: WebSocket
@@ -51,11 +52,12 @@ class PeerConnectionDelegate: NSObject, RTCPeerConnectionDelegate {
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didAdd stream: RTCMediaStream) {
-        
+        print("audioTracks: \(stream.audioTracks.count)")
+        print("videoTracks: \(stream.videoTracks.count)")
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didRemove stream: RTCMediaStream) {
-        
+        print(stream)
     }
     
     func peerConnectionShouldNegotiate(_ peerConnection: RTCPeerConnection) {
@@ -97,8 +99,32 @@ class DataChannelDelegate: NSObject, RTCDataChannelDelegate {
     func dataChannel(_ dataChannel: RTCDataChannel, didReceiveMessageWith buffer: RTCDataBuffer) {
         print(buffer)
     }
+}
+
+class RTCScreenVideoCapturer: RTCVideoCapturer, AVCaptureVideoDataOutputSampleBufferDelegate {
+    let captureSession = AVCaptureSession()
+    let output = AVCaptureVideoDataOutput()
+    let frameQueue = DispatchQueue(label: "frameQueue")
     
+    let nanosecondsPerSecond = 1000000000.0;
     
+    override init(delegate: RTCVideoCapturerDelegate) {
+        super.init(delegate: delegate)
+        
+        captureSession.addInput(AVCaptureScreenInput())
+        captureSession.addOutput(output)
+        
+        output.setSampleBufferDelegate(self, queue: frameQueue)
+    }
+    
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        if let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) {
+            let buffer = RTCCVPixelBuffer(pixelBuffer: imageBuffer)
+            let timeStampNs = CMTimeGetSeconds(CMSampleBufferGetPresentationTimeStamp(sampleBuffer)) * nanosecondsPerSecond
+            let frame = RTCVideoFrame(buffer: buffer, rotation: ._0, timeStampNs: Int64(timeStampNs))
+            delegate?.capturer(self, didCapture: frame)
+        }
+    }
 }
 
 class ViewController: NSViewController {
@@ -115,9 +141,21 @@ class ViewController: NSViewController {
         connectionADelegate.otherConnection = connectionB
         connectionBDelegate.otherConnection = connectionA
         
-        let dataConfig = RTCDataChannelConfiguration()
-        dataChannel = connectionA.dataChannel(forLabel: "channelA", configuration: dataConfig)
-        dataChannel.delegate = dataChannelDelegate
+//        let dataConfig = RTCDataChannelConfiguration()
+//        dataChannel = connectionA.dataChannel(forLabel: "channelA", configuration: dataConfig)
+//        dataChannel.delegate = dataChannelDelegate
+        
+        screenStream = self.factory.mediaStream(withStreamId: "screenStream")
+        let audioSource = self.factory.audioSource(with: nil)
+        
+        let videoSource = self.factory.videoSource()
+        screenCapturer = RTCScreenVideoCapturer(delegate: videoSource)
+        let screenTrack = self.factory.videoTrack(with: videoSource, trackId: "screenTrack")
+        screenStream.addVideoTrack(screenTrack)
+        
+        let voiceTrack = self.factory.audioTrack(with: audioSource, trackId: "voiceTrack")
+        screenStream.addAudioTrack(voiceTrack)
+        connectionA.add(screenStream)
         
         super.init(coder: coder)
     }
@@ -130,8 +168,11 @@ class ViewController: NSViewController {
     let connectionBDelegate = PeerConnectionDelegate()
     let connectionB: RTCPeerConnection
     
-    let dataChannel: RTCDataChannel
-    let dataChannelDelegate = DataChannelDelegate()
+    let screenStream: RTCMediaStream
+    let screenCapturer: RTCScreenVideoCapturer
+    
+//    let dataChannel: RTCDataChannel
+//    let dataChannelDelegate = DataChannelDelegate()
     
     let constraints: RTCMediaConstraints
     
