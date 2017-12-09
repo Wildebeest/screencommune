@@ -47,6 +47,9 @@ class PeerConnectionDelegate: NSObject, RTCPeerConnectionDelegate {
     var dataChannel: RTCDataChannel?
     let dataChannelDelegate = DataChannelDelegate()
     
+    var videoRenderer: RTCVideoRenderer?
+    var mediaStream: RTCMediaStream?
+    
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange stateChanged: RTCSignalingState) {
         print(stateChanged)
     }
@@ -54,6 +57,15 @@ class PeerConnectionDelegate: NSObject, RTCPeerConnectionDelegate {
     func peerConnection(_ peerConnection: RTCPeerConnection, didAdd stream: RTCMediaStream) {
         print("audioTracks: \(stream.audioTracks.count)")
         print("videoTracks: \(stream.videoTracks.count)")
+        
+        mediaStream = stream
+        
+        if let renderer = videoRenderer {
+            for track in stream.videoTracks {
+                track.add(renderer)
+                //track.add(fakeRenderer)
+            }
+        }
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didRemove stream: RTCMediaStream) {
@@ -114,6 +126,7 @@ class RTCScreenVideoCapturer: RTCVideoCapturer, AVCaptureVideoDataOutputSampleBu
         captureSession.addInput(AVCaptureScreenInput())
         captureSession.addOutput(output)
         
+        output.videoSettings = [String(kCVPixelBufferPixelFormatTypeKey): kCVPixelFormatType_420YpCbCr8BiPlanarFullRange]
         output.setSampleBufferDelegate(self, queue: frameQueue)
     }
     
@@ -141,20 +154,23 @@ class ViewController: NSViewController {
         connectionADelegate.otherConnection = connectionB
         connectionBDelegate.otherConnection = connectionA
         
+        connectionBDelegate.videoRenderer = remoteView
+        
 //        let dataConfig = RTCDataChannelConfiguration()
 //        dataChannel = connectionA.dataChannel(forLabel: "channelA", configuration: dataConfig)
 //        dataChannel.delegate = dataChannelDelegate
         
         screenStream = self.factory.mediaStream(withStreamId: "screenStream")
-        let audioSource = self.factory.audioSource(with: nil)
+        // let audioSource = self.factory.audioSource(with: nil)
         
         let videoSource = self.factory.videoSource()
         screenCapturer = RTCScreenVideoCapturer(delegate: videoSource)
         let screenTrack = self.factory.videoTrack(with: videoSource, trackId: "screenTrack")
+        //screenTrack.add(localView)
         screenStream.addVideoTrack(screenTrack)
         
-        let voiceTrack = self.factory.audioTrack(with: audioSource, trackId: "voiceTrack")
-        screenStream.addAudioTrack(voiceTrack)
+//        let voiceTrack = self.factory.audioTrack(with: audioSource, trackId: "voiceTrack")
+//        screenStream.addAudioTrack(voiceTrack)
         connectionA.add(screenStream)
         
         super.init(coder: coder)
@@ -171,6 +187,8 @@ class ViewController: NSViewController {
     let screenStream: RTCMediaStream
     let screenCapturer: RTCScreenVideoCapturer
     
+    let remoteView = RTCMTLNSVideoView()
+    
 //    let dataChannel: RTCDataChannel
 //    let dataChannelDelegate = DataChannelDelegate()
     
@@ -178,7 +196,16 @@ class ViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.addSubview(remoteView)
+        
+        remoteView.translatesAutoresizingMaskIntoConstraints = false
+        remoteView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        view.trailingAnchor.constraint(equalTo: remoteView.trailingAnchor).isActive = true
+        remoteView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        view.bottomAnchor.constraint(equalTo: remoteView.bottomAnchor).isActive = true
 
+        screenCapturer.captureSession.startRunning()
+        
         startCall()
     }
     

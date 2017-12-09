@@ -3,3 +3,4 @@
 //
 
 #include <WebRTC/WebRTC.h>
+#include <WebRTC/RTCMTLNSVideoView.h>
