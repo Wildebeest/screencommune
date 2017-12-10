@@ -143,7 +143,9 @@ class RTCScreenVideoCapturer: RTCVideoCapturer, AVCaptureVideoDataOutputSampleBu
 class ViewController: NSViewController {
     required init?(coder: NSCoder) {
         RTCInitializeSSL()
-        factory = RTCPeerConnectionFactory()
+        //factory = RTCPeerConnectionFactory()
+        factory = RTCPeerConnectionFactory(encoderFactory: RTCVideoEncoderFactoryH264(), decoderFactory: RTCVideoDecoderFactoryH264())
+        
         let config = RTCConfiguration()
         config.bundlePolicy = .balanced
         constraints = RTCMediaConstraints(mandatoryConstraints: nil, optionalConstraints: nil)
