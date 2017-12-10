@@ -9,6 +9,8 @@
 import Cocoa
 import Starscream
 import AVKit
+import CoreGraphics
+import CoreFoundation
 
 class Socket: WebSocketDelegate {
     let socket: WebSocket
@@ -209,6 +211,22 @@ class ViewController: NSViewController {
         screenCapturer.captureSession.startRunning()
         
         startCall()
+        
+        if let eventTap = CGEvent.tapCreate(tap: .cgAnnotatedSessionEventTap, place: .tailAppendEventTap, options: .listenOnly, eventsOfInterest: CGEventMask(UInt64.max), callback: { (eventTapProxy, eventType, event, userData) -> Unmanaged<CGEvent>? in
+            
+            if let nsEvent = NSEvent(cgEvent: event) {
+                if nsEvent.type == .mouseMoved {
+                    print(nsEvent.type.rawValue)
+                }
+            }
+            
+            return Unmanaged.passUnretained(event)
+        }, userInfo: nil) {
+            let runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0)
+            CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, .commonModes)
+            CGEvent.tapEnable(tap: eventTap, enable: true)
+            //CFRunLoopRun()
+        }
     }
     
     func startCall() {

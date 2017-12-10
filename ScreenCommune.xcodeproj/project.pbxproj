@@ -12,6 +12,7 @@
 		FA1C42D71FCEAC8F00020BE8 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA1C42D61FCEAC8F00020BE8 /* VideoToolbox.framework */; };
 		FA1C42D91FCEACD300020BE8 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FA1C42D81FCEACD200020BE8 /* libstdc++.tbd */; };
 		FA1C42F21FD345DF00020BE8 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA1C42F11FD345DF00020BE8 /* MetalKit.framework */; };
+		FA6441EA1FDCCFA000E9BF3F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA6441E91FDCCFA000E9BF3F /* CoreGraphics.framework */; };
 		FADCA84F1FC9FD1700596607 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADCA84E1FC9FD1700596607 /* AppDelegate.swift */; };
 		FADCA8511FC9FD1700596607 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADCA8501FC9FD1700596607 /* ViewController.swift */; };
 		FADCA8531FC9FD1700596607 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FADCA8521FC9FD1700596607 /* Assets.xcassets */; };
@@ -27,6 +28,7 @@
 		FA1C42D61FCEAC8F00020BE8 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		FA1C42D81FCEACD200020BE8 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		FA1C42F11FD345DF00020BE8 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
+		FA6441E91FDCCFA000E9BF3F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		FADCA84B1FC9FD1700596607 /* ScreenCommune.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScreenCommune.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FADCA84E1FC9FD1700596607 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FADCA8501FC9FD1700596607 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -42,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA6441EA1FDCCFA000E9BF3F /* CoreGraphics.framework in Frameworks */,
 				FA1C42F21FD345DF00020BE8 /* MetalKit.framework in Frameworks */,
 				FA1C42D91FCEACD300020BE8 /* libstdc++.tbd in Frameworks */,
 				FA1C42D71FCEAC8F00020BE8 /* VideoToolbox.framework in Frameworks */,
@@ -97,6 +100,7 @@
 		FADCA85E1FC9FD5200596607 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FA6441E91FDCCFA000E9BF3F /* CoreGraphics.framework */,
 				FA0DD0AE1FD681E600DFE5F6 /* AVFoundation.framework */,
 				FA1C42F11FD345DF00020BE8 /* MetalKit.framework */,
 				FA1C42D81FCEACD200020BE8 /* libstdc++.tbd */,
