@@ -7,5 +7,6 @@ target 'ScreenCommune' do
 
   # Pods for ScreenCommune
   pod 'Starscream', '~> 3'
+  pod 'MessagePack.swift', '~> 3.0'
 
 end

@@ -11,6 +11,7 @@ import Starscream
 import AVKit
 import CoreGraphics
 import CoreFoundation
+import MessagePack
 
 class Socket: WebSocketDelegate {
     let socket: WebSocket
@@ -142,6 +143,37 @@ class RTCScreenVideoCapturer: RTCVideoCapturer, AVCaptureVideoDataOutputSampleBu
     }
 }
 
+class RemoteView: RTCMTLNSVideoView {
+//    override func viewWillMove(toWindow newWindow: NSWindow?) {
+//        let trackingArea = NSTrackingArea(rect: self.frame, options: [.activeInKeyWindow, .mouseEnteredAndExited, .mouseMoved], owner: self, userInfo: nil)
+//        self.addTrackingArea(trackingArea)
+//    }
+    
+    override func updateTrackingAreas() {
+        for trackingArea in trackingAreas {
+           self.removeTrackingArea(trackingArea)
+        }
+        
+        let trackingArea = NSTrackingArea(rect: self.frame, options: [.activeInKeyWindow, .mouseEnteredAndExited, .mouseMoved], owner: self, userInfo: nil)
+        self.addTrackingArea(trackingArea)
+    }
+    
+    override func mouseDown(with event: NSEvent) {
+        let message: MessagePackValue = ["type": 0, "x": .float(Float(event.locationInWindow.x / bounds.width)), "y": .float(Float(event.locationInWindow.y / bounds.height))]
+        let data = pack(message)
+        
+        //CGEvent(mouseEventSource: <#T##CGEventSource?#>, mouseType: <#T##CGEventType#>, mouseCursorPosition: <#T##CGPoint#>, mouseButton: <#T##CGMouseButton#>)
+    }
+    
+    override func mouseEntered(with event: NSEvent) {
+        print(event)
+    }
+    
+    override func mouseMoved(with event: NSEvent) {
+        print(event)
+    }
+}
+
 class ViewController: NSViewController {
     required init?(coder: NSCoder) {
         RTCInitializeSSL()
@@ -191,7 +223,7 @@ class ViewController: NSViewController {
     let screenStream: RTCMediaStream
     let screenCapturer: RTCScreenVideoCapturer
     
-    let remoteView = RTCMTLNSVideoView()
+    let remoteView = RemoteView()//RTCMTLNSVideoView()
     
 //    let dataChannel: RTCDataChannel
 //    let dataChannelDelegate = DataChannelDelegate()
@@ -207,26 +239,32 @@ class ViewController: NSViewController {
         view.trailingAnchor.constraint(equalTo: remoteView.trailingAnchor).isActive = true
         remoteView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         view.bottomAnchor.constraint(equalTo: remoteView.bottomAnchor).isActive = true
-
+        
+        remoteView.widthAnchor.constraint(equalTo: remoteView.heightAnchor, multiplier: 1.6).isActive = true
+    
         screenCapturer.captureSession.startRunning()
         
         startCall()
         
-        if let eventTap = CGEvent.tapCreate(tap: .cgAnnotatedSessionEventTap, place: .tailAppendEventTap, options: .listenOnly, eventsOfInterest: CGEventMask(UInt64.max), callback: { (eventTapProxy, eventType, event, userData) -> Unmanaged<CGEvent>? in
-            
-            if let nsEvent = NSEvent(cgEvent: event) {
-                if nsEvent.type == .mouseMoved {
-                    print(nsEvent.type.rawValue)
-                }
-            }
-            
-            return Unmanaged.passUnretained(event)
-        }, userInfo: nil) {
-            let runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0)
-            CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, .commonModes)
-            CGEvent.tapEnable(tap: eventTap, enable: true)
-            //CFRunLoopRun()
-        }
+//        if let eventTap = CGEvent.tapCreate(tap: .cgAnnotatedSessionEventTap, place: .tailAppendEventTap, options: .listenOnly, eventsOfInterest: CGEventMask(UInt64.max), callback: { (eventTapProxy, eventType, event, userData) -> Unmanaged<CGEvent>? in
+//
+//            if let nsEvent = NSEvent(cgEvent: event) {
+//                if nsEvent.type == .mouseMoved {
+//                    print(nsEvent.type.rawValue)
+//                }
+//            }
+//
+//            return Unmanaged.passUnretained(event)
+//        }, userInfo: nil) {
+//            let runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0)
+//            CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, .commonModes)
+//            CGEvent.tapEnable(tap: eventTap, enable: true)
+//            //CFRunLoopRun()
+//        }
+    }
+    
+    override func mouseEntered(with event: NSEvent) {
+        print(event)
     }
     
     func startCall() {

@@ -204,10 +204,12 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-ScreenCommune/Pods-ScreenCommune-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/MessagePack.swift/MessagePack.framework",
 				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MessagePack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -383,11 +385,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				"LIBRARY_SEARCH_PATHS[arch=*]" = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-					"/Users/wilde/webrtc/src/out/Default/obj/**",
-				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(inherited) $(PROJECT_DIR) /Users/wilde/webrtc/src/out/Default/obj/**";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.ScreenCommune;
 				PRODUCT_NAME = "$(TARGET_NAME)";
