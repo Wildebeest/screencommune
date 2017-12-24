@@ -385,7 +385,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(inherited) $(PROJECT_DIR) /Users/wilde/webrtc/src/out/Default/obj/**";
+				"LIBRARY_SEARCH_PATHS[arch=*]" = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"/Users/wilde/webrtc/src/out/Default/obj/**",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.ScreenCommune;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -149,6 +149,8 @@ class RemoteView: RTCMTLNSVideoView {
 //        self.addTrackingArea(trackingArea)
 //    }
     
+    var cursorWindow: NSWindow?
+    
     override func updateTrackingAreas() {
         for trackingArea in trackingAreas {
            self.removeTrackingArea(trackingArea)
@@ -159,10 +161,11 @@ class RemoteView: RTCMTLNSVideoView {
     }
     
     override func mouseDown(with event: NSEvent) {
-        let message: MessagePackValue = ["type": 0, "x": .float(Float(event.locationInWindow.x / bounds.width)), "y": .float(Float(event.locationInWindow.y / bounds.height))]
-        let data = pack(message)
+//        let message: MessagePackValue = ["type": 0, "x": .float(Float(event.locationInWindow.x / bounds.width)), "y": .float(Float(event.locationInWindow.y / bounds.height))]
+//        let data = pack(message)
         
-        //CGEvent(mouseEventSource: <#T##CGEventSource?#>, mouseType: <#T##CGEventType#>, mouseCursorPosition: <#T##CGPoint#>, mouseButton: <#T##CGMouseButton#>)
+        let clickEvent = CGEvent(mouseEventSource: nil, mouseType: .leftMouseDown, mouseCursorPosition: remoteLocation(event: event), mouseButton: .left)
+        clickEvent?.post(tap: .cgSessionEventTap)
     }
     
     override func mouseEntered(with event: NSEvent) {
@@ -170,7 +173,15 @@ class RemoteView: RTCMTLNSVideoView {
     }
     
     override func mouseMoved(with event: NSEvent) {
-        print(event)
+        //print(event)
+        if let cursorWindow = cursorWindow {
+            let location = remoteLocation(event: event)
+            cursorWindow.setFrameOrigin(location)
+        }
+    }
+    
+    func remoteLocation(event: NSEvent) -> CGPoint {
+        return event.locationInWindow.applying(CGAffineTransform(scaleX: (NSScreen.main?.visibleFrame.width)! / self.frame.width, y: (NSScreen.main?.visibleFrame.height)! / self.frame.height))
     }
 }
 
@@ -209,8 +220,24 @@ class ViewController: NSViewController {
 //        screenStream.addAudioTrack(voiceTrack)
         connectionA.add(screenStream)
         
+        cursorWindow = NSWindow(contentRect: NSRect.zero, styleMask: .borderless, backing: .buffered, defer: false)
+        cursorWindow.backgroundColor = NSColor.clear
+        cursorWindow.collectionBehavior = [.canJoinAllSpaces, .ignoresCycle, .stationary, .fullScreenAuxiliary]
+        cursorWindow.level = NSWindow.Level(Int(CGWindowLevelForKey(.draggingWindow)))
+        if let cursorImage = NSImage(named: NSImage.Name("Cursor")) {
+            let cursorView = NSImageView(image: cursorImage)
+            cursorView.frame = NSRect(origin: CGPoint.zero, size: cursorImage.size)
+            cursorWindow.setFrameOrigin(NSPoint(x: 100, y: 100))
+            cursorWindow.setFrame(cursorView.frame, display: true)
+            cursorWindow.contentView?.addSubview(cursorView)
+            cursorWindow.orderFront(nil)
+        }
+        remoteView.cursorWindow = cursorWindow
+        
         super.init(coder: coder)
     }
+    
+    let cursorWindow: NSWindow
     
     let factory: RTCPeerConnectionFactory
     
